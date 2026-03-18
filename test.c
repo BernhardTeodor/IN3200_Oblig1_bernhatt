@@ -43,4 +43,5 @@ int main()
     return 0;
 }
 
+// RUN: gcc -o test test.c read_sparse_matrix_from_file.c
 

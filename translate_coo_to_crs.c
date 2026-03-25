@@ -28,7 +28,7 @@ void translate_coo_to_crs(struct sparse_mat_coo *mat_coo, struct sparse_mat_crs 
 
     memcpy(next, row_ptr, n*sizeof(int));
 
-    double *val2 = malloc(nnz * sizeof(int));
+    double *val2 = malloc(nnz * sizeof(double));
     int *col2 = malloc(nnz * sizeof(int));
 
     for(int i = 0; i < nnz; i++)
@@ -44,6 +44,9 @@ void translate_coo_to_crs(struct sparse_mat_coo *mat_coo, struct sparse_mat_crs 
     mat_crs->col_idx = col2;
     mat_crs->val = val2;
     mat_crs->row_ptr = row_ptr;
+
+    free(col2);
+    free(val2);
 
 }
 

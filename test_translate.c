@@ -54,10 +54,20 @@ void test_translate()
 }
 
 
+void test_read_and_convert()
+{
+
+
+
+
+}
+
+
 
 
 int main()
 {   
     test_translate();
+    test_read_and_convert();
     return 0;
 }

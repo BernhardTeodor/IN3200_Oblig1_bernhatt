@@ -32,6 +32,9 @@ void read_sparse_matrix_from_file(char *filename, struct sparse_mat_coo *matrix)
     for (int i = 0; i < matrix->nnz; i++)
     {
         fscanf(fp, "%d %d %lf", &row_array[i], &col_array[i], &values[i]);
+        row_array[i] -= 1;
+        col_array[i] -= 1;
+        
     }
 
     matrix->row_idx = row_array;

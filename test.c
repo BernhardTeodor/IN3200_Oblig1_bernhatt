@@ -25,8 +25,8 @@ void test_read_matrix()
 
     for (int i = 0; i < actual_nnz; i++)
     {
-        assert(actual_col[i] == x.col_idx[i]);
-        assert(actual_row[i] == x.row_idx[i]);
+        assert(actual_col[i] - 1 == x.col_idx[i]);
+        assert(actual_row[i] - 1 == x.row_idx[i]);
         assert(abs(actual_val[i] - x.val[i]) < tol);
     }
     printf("Success\n");

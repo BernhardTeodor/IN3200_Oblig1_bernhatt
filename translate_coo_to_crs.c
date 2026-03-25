@@ -1,25 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "function_declarations.h"
 
 
 void translate_coo_to_crs(struct sparse_mat_coo *mat_coo, struct sparse_mat_crs *mat_crs)
 {
 
+    int n = mat_coo->n;
+    int nnz = mat_coo->nnz;
 
-    int *row_ptr = malloc((mat_coo->n + 1) * sizeof(int));
+    int *row_ptr = malloc((n + 1) * sizeof(int));
+    int *count = malloc(n *sizeof(int));
+    int *next = malloc(n * sizeof(int));
 
-    int *count = malloc(mat_coo->n *sizeof(int));
-    row_ptr[0] = 0;
     
-    int *next = malloc(mat_coo->n * sizeof(int));
-    next[0] = 0;
+    row_ptr[0] = 0;
 
 
-    for(int i = 0; i < mat_coo->n; i++)
+    for(int i = 0; i <n; i++)
     {  
         count[i] = 0;
-        for(int j = 0; j < mat_coo->nnz; j++)
+        for(int j = 0; j < nnz; j++)
         {
             if(i == mat_coo->row_idx[j])
             {
@@ -29,16 +31,17 @@ void translate_coo_to_crs(struct sparse_mat_coo *mat_coo, struct sparse_mat_crs 
     }
 
 
-    for(int i = 1; i <= mat_coo->n; i++)
+    for(int i = 1; i <= n; i++)
     {
         row_ptr[i] = row_ptr[i -1] + count[i -1];
-        next[i] = next[i - 1] + count[i - 1];
-    }
+    }   
 
-    double *val2 = malloc(mat_coo->nnz * sizeof(int));
-    int *col2 = malloc(mat_coo->nnz * sizeof(int));
+    memcpy(next, row_ptr, n*sizeof(int));
 
-    for(int i = 0; i < mat_coo->nnz; i++)
+    double *val2 = malloc(nnz * sizeof(int));
+    int *col2 = malloc(nnz * sizeof(int));
+
+    for(int i = 0; i < nnz; i++)
     {
         int x_i =  mat_coo->row_idx[i];
         val2[next[x_i]] = mat_coo->val[i];
@@ -47,8 +50,8 @@ void translate_coo_to_crs(struct sparse_mat_coo *mat_coo, struct sparse_mat_crs 
     }
 
 
-    mat_crs->n = mat_coo->n;
-    mat_crs->nnz = mat_coo->nnz;
+    mat_crs->n = n;
+    mat_crs->nnz = nnz;
     mat_crs->col_idx = col2;
     mat_crs->val = val2;
     mat_crs->row_ptr = row_ptr;

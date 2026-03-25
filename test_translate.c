@@ -50,16 +50,27 @@ void test_translate()
 
     }
 
-    printf("Success\n");
+    printf("Success 111\n");
 }
 
 
 void test_read_and_convert()
 {
 
+    int row_ptr[8] = {0,3,5,7,9,11,13,15};
 
+    struct sparse_mat_coo x;
+    struct sparse_mat_crs y;
+    read_sparse_matrix_from_file("data/b1_ss.mtx",&x);
 
+    translate_coo_to_crs(&x,&y);
 
+    for(int i = 0; i< x.n; i++)
+    {
+        assert(row_ptr[i] == y.row_ptr[i]);
+    }
+
+    printf("success 222 \n");
 }
 
 

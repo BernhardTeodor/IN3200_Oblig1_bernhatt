@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "function_declarations.h"
+
 int main (int nargs, char **args)
 {
     char filename[80];

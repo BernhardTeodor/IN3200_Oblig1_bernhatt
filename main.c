@@ -56,10 +56,10 @@ int main (int nargs, char **args)
 
 
     // // allocate CRS data structure S_crs
-    // S_crs.n = S_coo.n; S_crs.nnz = S_coo.nnz;
-    // S_crs.row_ptr = (int*)malloc((S_crs.n+1) * sizeof(int));
-    // S_crs.col_idx = (int*)malloc(S_crs.nnz * sizeof(int));
-    // S_crs.val = (double*)malloc(S_crs.nnz * sizeof(double));
+    S_crs.n = S_coo.n; S_crs.nnz = S_coo.nnz;
+    S_crs.row_ptr = (int*)malloc((S_crs.n+1) * sizeof(int));
+    S_crs.col_idx = (int*)malloc(S_crs.nnz * sizeof(int));
+    S_crs.val = (double*)malloc(S_crs.nnz * sizeof(double));
     
 
     // // translate from S_coo to S_crs
@@ -76,5 +76,16 @@ int main (int nargs, char **args)
     // sampled_matrix_multiplication_crs (&C_crs, A, B, &S_crs);
     
     // deallocate data structures
+    free(S_coo.row_idx);
+    free(S_coo.col_idx);
+    free(S_coo.val);
+    free(C_coo.val);
+    free(A[0]);
+    free(B[0]);
+    free(A);
+    free(B);
+    free(S_crs.row_ptr);
+    free(S_crs.col_idx);
+    free(S_crs.val);
     return 0;
 }

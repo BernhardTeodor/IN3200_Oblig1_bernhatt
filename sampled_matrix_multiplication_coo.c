@@ -9,8 +9,8 @@ void sampled_matrix_multiplication_coo(struct sparse_mat_coo *C, double **A, dou
 
     for(int i = 0; i < S->nnz; i++)
     {
-        int row = S->row_idx[i] - 1;
-        int col = S->col_idx[i] - 1; 
+        int row = S->row_idx[i];
+        int col = S->col_idx[i]; 
         double s = S->val[i];       
         double sum = 0.0;
 

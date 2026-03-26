@@ -45,8 +45,8 @@ void test_sampled_matrix_multiplication_coo()
     Actual_C.nnz = 4;
 
     double values[4] = {14, 64, 231, 200};
-    int row[4] = {1,1,2,3};
-    int col[4] = {1,2,2,1};
+    int row[4] = {0,0,1,2};
+    int col[4] = {0,1,1,0};
 
     Actual_C.val = values;
     Actual_C.row_idx = row;

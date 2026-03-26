@@ -33,6 +33,11 @@ void test_translate()
 
     
     struct sparse_mat_crs y;
+    y.n = x.n; y.nnz = x.nnz;
+    y.row_ptr = (int*)malloc((x.n+1) * sizeof(int));
+    y.col_idx = (int*)malloc(x.nnz * sizeof(int));
+    y.val = (double*)malloc(x.nnz * sizeof(double));
+    
     
     translate_coo_to_crs(&x, &y);
 
@@ -62,6 +67,12 @@ void test_read_and_convert()
     struct sparse_mat_coo x;
     struct sparse_mat_crs y;
     read_sparse_matrix_from_file("data/b1_ss.mtx",&x);
+
+    y.n = x.n; y.nnz = x.nnz;
+    y.row_ptr = (int*)malloc((x.n+1) * sizeof(int));
+    y.col_idx = (int*)malloc(x.nnz * sizeof(int));
+    y.val = (double*)malloc(x.nnz * sizeof(double));
+    
 
     translate_coo_to_crs(&x,&y);
 

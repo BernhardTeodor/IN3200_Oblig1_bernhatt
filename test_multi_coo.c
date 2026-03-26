@@ -91,6 +91,11 @@ void test_sampled_matrix_multiplication_coo()
     S.val = s_value;
     
     struct sparse_mat_coo C;
+    C.n = S.n;
+    C.nnz = S.nnz;
+    C.row_idx = S.row_idx;
+    C.col_idx = S.col_idx;
+    C.val = malloc(S.nnz * sizeof(double));
 
     sampled_matrix_multiplication_coo(&C, A, B, &S);
 

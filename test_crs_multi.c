@@ -76,10 +76,18 @@ void test_sampled_matrix_multiplication_crs()
     S.val = s_value;
 
     struct sparse_mat_crs S_crs;
+    S_crs.n = S.n; S_crs.nnz = S.nnz;
+    S_crs.row_ptr = (int*)malloc((S_crs.n+1) * sizeof(int));
+    S_crs.col_idx = (int*)malloc(S_crs.nnz * sizeof(int));
+    S_crs.val = (double*)malloc(S_crs.nnz * sizeof(double));
 
     translate_coo_to_crs(&S, &S_crs);
 
     struct sparse_mat_crs C;
+    C.n = S.n; C.nnz = S.nnz;
+    C.row_ptr = (int*)malloc((S.n + 1) * sizeof(int));
+    C.col_idx = (int*)malloc(S.nnz * sizeof(int));
+    C.val = (double*)malloc(S.nnz * sizeof(double));
 
     sampled_matrix_multiplication_crs(&C, A, B, &S_crs);
 

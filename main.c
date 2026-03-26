@@ -26,7 +26,7 @@ int main (int nargs, char **args)
     
     // allocate A and B as 2D n x n arrays and assign suitable numerical values
     // double **A, **B;
-    int n = C_coo.n;
+    int n = S_coo.n;
     A = malloc(n*sizeof(double *));
     A[0] = malloc(n*n*sizeof(double));
     
@@ -50,7 +50,6 @@ int main (int nargs, char **args)
             B[j][i] = rand() %1000; 
         }
     }
-    
 
     // // computation 1
     sampled_matrix_multiplication_coo (&C_coo, A, B, &S_coo);
@@ -62,20 +61,20 @@ int main (int nargs, char **args)
     // S_crs.col_idx = (int*)malloc(S_crs.nnz * sizeof(int));
     // S_crs.val = (double*)malloc(S_crs.nnz * sizeof(double));
     
+
     // // translate from S_coo to S_crs
     // translate_coo_to_crs (&S_coo, &S_crs);
-    
+
     // // allocate CRS data structure C_crs
     // C_crs.n = S_crs.n; C_crs.nnz = S_crs.nnz;
     // C_crs.row_ptr = S_crs.row_ptr;
     // C_crs.col_idx = S_crs.col_idx;
     // C_crs.val = (double*)malloc(C_crs.nnz * sizeof(double));
+        
     
     // // computation 2
     // sampled_matrix_multiplication_crs (&C_crs, A, B, &S_crs);
     
     // deallocate data structures
-    // .....
-    
     return 0;
 }

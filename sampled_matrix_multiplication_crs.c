@@ -6,7 +6,6 @@
 
 void sampled_matrix_multiplication_crs(struct sparse_mat_crs *C, double **A, double **B, struct sparse_mat_crs *S)
 {
-    double *values = malloc(S->nnz *sizeof(double));
 
     for(int i = 0; i < S->n; i++)
     {
@@ -20,15 +19,8 @@ void sampled_matrix_multiplication_crs(struct sparse_mat_crs *C, double **A, dou
             {
                 sum += A[i][k] * B[k][col];
             }
-            values[j] = sum * val;
+            C->val[j] = sum * val;
         }
     }
 
-
-
-    C->n = S->n;
-    C->nnz = S->nnz;
-    C->col_idx = S->col_idx;
-    C->row_ptr = S->row_ptr;
-    C->val = values;
 }

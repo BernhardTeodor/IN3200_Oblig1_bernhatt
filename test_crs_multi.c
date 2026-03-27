@@ -85,8 +85,8 @@ void test_sampled_matrix_multiplication_crs()
 
     struct sparse_mat_crs C;
     C.n = S.n; C.nnz = S.nnz;
-    C.row_ptr = (int*)malloc((S.n + 1) * sizeof(int));
-    C.col_idx = (int*)malloc(S.nnz * sizeof(int));
+    C.col_idx = S_crs.col_idx;
+    C.row_ptr = S_crs.row_ptr;
     C.val = (double*)malloc(S.nnz * sizeof(double));
 
     sampled_matrix_multiplication_crs(&C, A, B, &S_crs);

@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "function_declarations.h"
-
+#include <omp.h>
 
 void sampled_matrix_multiplication_coo(struct sparse_mat_coo *C, double **A, double **B, struct sparse_mat_coo *S)
 {
+    #ifdef _OPENMP
+    #pragma omp parallel for
+    #endif
     for(int i = 0; i < S->nnz; i++)
     {
         int row = S->row_idx[i];
